@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -eo pipefail; [[ -n "$PLUSHU_TRACE" ]] && set -x
+
+if [[ -n "$PLUSHU_REPO_NAME" ]]; then
+  repo_src=$PLUSHU_REPO_NAME
+fi
+
+if [[ -n "$2" ]]; then
+  repo_src=$2
+  shift
+fi
+
+if [[ -z "$repo_src" ]]; then
+  echo "Missing repo name" >&2
+  exit 1
+fi
+
+if [[ -n "$2" ]]; then
+  repo_dest=$2
+else
+  echo "Missing new repo name" >&2
+  exit 1
+fi
+
+# Call out to integration plugins to copy the repo(s)
+"$PLUSHU_ROOT/lib/plushook" copy-repo "$repo_src" "$repo_dest"

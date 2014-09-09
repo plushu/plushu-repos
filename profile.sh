@@ -1,0 +1,1 @@
+export PLUSHU_REPOS_DIR=$PLUSHU_ROOT/repos
